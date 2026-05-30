@@ -1,0 +1,1476 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>地址 Dìzhǐ — Адрес и локация | HSK 1-2</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700;900&family=Noto+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+    --primary: #7c3aed;
+    --primary-light: #ede9fe;
+    --accent: #f59e0b;
+    --accent-light: #fef3c7;
+    --success: #10b981;
+    --danger: #ef4444;
+    --dark: #1e293b;
+    --gray: #64748b;
+    --light: #f8fafc;
+    --card-shadow: 0 4px 20px rgba(0,0,0,0.08);
+    --card-shadow-hover: 0 8px 30px rgba(0,0,0,0.12);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+    font-family: 'Noto Sans', 'Noto Sans SC', sans-serif;
+    background: var(--light);
+    color: var(--dark);
+    line-height: 1.6;
+    min-height: 100vh;
+}
+
+.header {
+    background: linear-gradient(135deg, #7c3aed 0%, #2563eb 100%);
+    color: white;
+    padding: 2rem 1rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.header::before {
+    content: '';
+    position: absolute;
+    top: -50%; left: -50%;
+    width: 200%; height: 200%;
+    background: radial-gradient(circle, rgba(255,255,255,0.1) 1px, transparent 1px);
+    background-size: 20px 20px;
+    opacity: 0.3;
+}
+
+.header h1 { font-size: clamp(1.8rem, 5vw, 3rem); font-weight: 900; position: relative; z-index: 1; }
+.header .subtitle { font-size: 1.1rem; opacity: 0.9; margin-top: 0.5rem; position: relative; z-index: 1; }
+.header .emoji { font-size: 2rem; display: block; margin-bottom: 0.5rem; }
+.header .badge {
+    display: inline-block;
+    background: rgba(255,255,255,0.2);
+    padding: 0.3rem 1rem;
+    border-radius: 50px;
+    font-size: 0.9rem;
+    margin-top: 0.5rem;
+    position: relative;
+    z-index: 1;
+}
+
+.nav-tabs {
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 1rem;
+    background: white;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    flex-wrap: wrap;
+}
+
+.nav-tab {
+    padding: 0.6rem 1.2rem;
+    border: none;
+    background: var(--light);
+    color: var(--gray);
+    border-radius: 50px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.nav-tab:hover { background: var(--primary-light); color: var(--primary); }
+.nav-tab.active { background: var(--primary); color: white; box-shadow: 0 4px 15px rgba(124,58,237,0.3); }
+
+.content-section {
+    display: none;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 1.5rem 1rem;
+    animation: fadeIn 0.4s ease;
+}
+
+.content-section.active { display: block; }
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.vocab-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1rem;
+}
+
+.vocab-card {
+    background: linear-gradient(135deg, #ede9fe 0%, #ddd6fe 100%);
+    border-radius: 20px;
+    padding: 1.5rem;
+    box-shadow: var(--card-shadow);
+    transition: all 0.3s ease;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    border: 2px solid transparent;
+}
+
+.vocab-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--card-shadow-hover);
+    border-color: var(--primary);
+}
+
+.vocab-card .char-big {
+    font-size: 3rem;
+    font-weight: 900;
+    color: var(--primary);
+    line-height: 1;
+    font-family: 'Noto Sans SC', sans-serif;
+}
+
+.vocab-card .pinyin {
+    font-size: 1rem;
+    color: var(--gray);
+    font-weight: 500;
+    margin: 0.3rem 0;
+}
+
+.vocab-card .meaning {
+    font-size: 1rem;
+    color: var(--dark);
+    font-weight: 600;
+}
+
+.vocab-card .icon {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    font-size: 2.5rem;
+    opacity: 0.2;
+}
+
+.questions-container {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.question-card {
+    background: linear-gradient(135deg, #ddd6fe 0%, #c4b5fd 100%);
+    border-radius: 24px;
+    padding: 2rem;
+    box-shadow: var(--card-shadow);
+    margin-bottom: 1.5rem;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: 3px solid transparent;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.question-card:hover {
+    transform: scale(1.02);
+    border-color: var(--primary);
+}
+
+.question-card .q-char {
+    font-size: clamp(1.5rem, 4vw, 2.2rem);
+    font-weight: 900;
+    color: var(--dark);
+    font-family: 'Noto Sans SC', sans-serif;
+    margin-bottom: 0.5rem;
+}
+
+.question-card .q-pinyin {
+    font-size: 1rem;
+    color: var(--gray);
+    margin-bottom: 0.5rem;
+}
+
+.question-card .q-trans {
+    font-size: 1.1rem;
+    color: var(--dark);
+    font-weight: 600;
+}
+
+.question-card .q-answer {
+    display: none;
+    margin-top: 1.5rem;
+    padding: 1.2rem;
+    background: white;
+    border-radius: 16px;
+    text-align: left;
+}
+
+.question-card .q-answer.show {
+    display: block;
+    animation: fadeIn 0.3s ease;
+}
+
+.question-card .q-answer .ans-label {
+    font-size: 0.85rem;
+    color: var(--gray);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 0.5rem;
+}
+
+.question-card .q-answer .ans-text {
+    font-size: 1.1rem;
+    color: var(--dark);
+    line-height: 1.8;
+}
+
+.question-card.revealed {
+    border-color: var(--success);
+    background: linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%);
+}
+
+.quiz-container { max-width: 700px; margin: 0 auto; }
+
+.quiz-card {
+    background: white;
+    border-radius: 24px;
+    padding: 2rem;
+    box-shadow: var(--card-shadow);
+    text-align: center;
+}
+
+.quiz-progress {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+    padding: 0 0.5rem;
+}
+
+.quiz-progress-bar {
+    flex: 1;
+    height: 8px;
+    background: #e2e8f0;
+    border-radius: 4px;
+    margin: 0 1rem;
+    overflow: hidden;
+}
+
+.quiz-progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--primary), #2563eb);
+    border-radius: 4px;
+    transition: width 0.5s ease;
+}
+
+.quiz-question { font-size: 1.3rem; margin-bottom: 0.5rem; color: var(--gray); }
+
+.quiz-target {
+    font-size: clamp(2.5rem, 8vw, 4rem);
+    font-weight: 900;
+    color: var(--dark);
+    margin: 1rem 0;
+    font-family: 'Noto Sans SC', sans-serif;
+}
+
+.quiz-target .pinyin-hint {
+    font-size: 1.2rem;
+    color: var(--gray);
+    font-weight: 400;
+    display: block;
+    margin-top: 0.3rem;
+}
+
+.quiz-options {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin-top: 2rem;
+}
+
+.quiz-option {
+    padding: 1.2rem 1rem;
+    border: 2px solid #e2e8f0;
+    border-radius: 16px;
+    background: white;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.quiz-option:hover { border-color: var(--primary); background: var(--primary-light); }
+.quiz-option.correct { background: #d1fae5; border-color: var(--success); color: #065f46; animation: correctPulse 0.5s ease; }
+.quiz-option.wrong { background: #fee2e2; border-color: var(--danger); color: #991b1b; animation: shake 0.5s ease; }
+.quiz-option.disabled { pointer-events: none; opacity: 0.6; }
+
+@keyframes correctPulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.05); } }
+@keyframes shake { 0%, 100% { transform: translateX(0); } 25% { transform: translateX(-8px); } 75% { transform: translateX(8px); } }
+
+.quiz-feedback {
+    margin-top: 1.5rem;
+    padding: 1rem;
+    border-radius: 12px;
+    font-weight: 600;
+    display: none;
+}
+
+.quiz-feedback.show { display: block; animation: fadeIn 0.3s ease; }
+.quiz-feedback.correct-fb { background: #d1fae5; color: #065f46; }
+.quiz-feedback.wrong-fb { background: #fee2e2; color: #991b1b; }
+
+.next-btn {
+    margin-top: 1.5rem;
+    padding: 0.9rem 2.5rem;
+    background: var(--primary);
+    color: white;
+    border: none;
+    border-radius: 50px;
+    font-size: 1.1rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: none;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.next-btn.show { display: inline-block; animation: fadeIn 0.3s ease; }
+.next-btn:hover { background: #6d28d9; transform: scale(1.05); }
+
+.days-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 1rem;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.day-card {
+    background: linear-gradient(135deg, #fecaca 0%, #fca5a5 100%);
+    border-radius: 20px;
+    padding: 1.5rem;
+    text-align: center;
+    box-shadow: var(--card-shadow);
+    transition: all 0.3s ease;
+    cursor: pointer;
+    border: 2px solid transparent;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.day-card:hover { transform: translateY(-4px); border-color: var(--danger); }
+
+.day-card .day-char {
+    font-size: 2.5rem;
+    font-weight: 900;
+    color: var(--dark);
+    font-family: 'Noto Sans SC', sans-serif;
+}
+
+.day-card .day-pinyin {
+    font-size: 1rem;
+    color: var(--gray);
+    margin: 0.3rem 0;
+}
+
+.day-card .day-trans {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--dark);
+}
+
+.match-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: 1rem;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.match-card {
+    aspect-ratio: 1;
+    background: white;
+    border-radius: 16px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    box-shadow: var(--card-shadow);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: 3px solid transparent;
+    padding: 1rem;
+    text-align: center;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.match-card:hover { transform: scale(1.05); }
+.match-card.selected { border-colorотово! Вот полный код для **Урока 2 — 地址 Dìzhǐ (Адрес и локация)**:
+
+```html
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>地址 Dìzhǐ — Адрес и локация | HSK 1-2</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700;900&family=Noto+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+    --primary: #7c3aed;
+    --primary-light: #ede9fe;
+    --accent: #f59e0b;
+    --accent-light: #fef3c7;
+    --success: #10b981;
+    --danger: #ef4444;
+    --dark: #1e293b;
+    --gray: #64748b;
+    --light: #f8fafc;
+    --card-shadow: 0 4px 20px rgba(0,0,0,0.08);
+    --card-shadow-hover: 0 8px 30px rgba(0,0,0,0.12);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+    font-family: 'Noto Sans', 'Noto Sans SC', sans-serif;
+    background: var(--light);
+    color: var(--dark);
+    line-height: 1.6;
+    min-height: 100vh;
+}
+
+.header {
+    background: linear-gradient(135deg, #7c3aed 0%, #2563eb 100%);
+    color: white;
+    padding: 2rem 1rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.header::before {
+    content: '';
+    position: absolute;
+    top: -50%; left: -50%;
+    width: 200%; height: 200%;
+    background: radial-gradient(circle, rgba(255,255,255,0.1) 1px, transparent 1px);
+    background-size: 20px 20px;
+    opacity: 0.3;
+}
+
+.header h1 { font-size: clamp(1.8rem, 5vw, 3rem); font-weight: 900; position: relative; z-index: 1; }
+.header .subtitle { font-size: 1.1rem; opacity: 0.9; margin-top: 0.5rem; position: relative; z-index: 1; }
+.header .emoji { font-size: 2rem; display: block; margin-bottom: 0.5rem; }
+.header .badge {
+    display: inline-block;
+    background: rgba(255,255,255,0.2);
+    padding: 0.3rem 1rem;
+    border-radius: 50px;
+    font-size: 0.9rem;
+    margin-top: 0.5rem;
+    position: relative;
+    z-index: 1;
+}
+
+.nav-tabs {
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 1rem;
+    background: white;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    flex-wrap: wrap;
+}
+
+.nav-tab {
+    padding: 0.6rem 1.2rem;
+    border: none;
+    background: var(--light);
+    color: var(--gray);
+    border-radius: 50px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.nav-tab:hover { background: var(--primary-light); color: var(--primary); }
+.nav-tab.active { background: var(--primary); color: white; box-shadow: 0 4px 15px rgba(124,58,237,0.3); }
+
+.content-section {
+    display: none;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 1.5rem 1rem;
+    animation: fadeIn 0.4s ease;
+}
+
+.content-section.active { display: block; }
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.vocab-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1rem;
+}
+
+.vocab-card {
+    background: linear-gradient(135deg, #ede9fe 0%, #ddd6fe 100%);
+    border-radius: 20px;
+    padding: 1.5rem;
+    box-shadow: var(--card-shadow);
+    transition: all 0.3s ease;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    border: 2px solid transparent;
+}
+
+.vocab-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--card-shadow-hover);
+    border-color: var(--primary);
+}
+
+.vocab-card .char-big {
+    font-size: 3rem;
+    font-weight: 900;
+    color: var(--primary);
+    line-height: 1;
+    font-family: 'Noto Sans SC', sans-serif;
+}
+
+.vocab-card .pinyin {
+    font-size: 1rem;
+    color: var(--gray);
+    font-weight: 500;
+    margin: 0.3rem 0;
+}
+
+.vocab-card .meaning {
+    font-size: 1rem;
+    color: var(--dark);
+    font-weight: 600;
+}
+
+.vocab-card .icon {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    font-size: 2.5rem;
+    opacity: 0.2;
+}
+
+.questions-container {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.question-card {
+    background: linear-gradient(135deg, #ddd6fe 0%, #c4b5fd 100%);
+    border-radius: 24px;
+    padding: 2rem;
+    box-shadow: var(--card-shadow);
+    margin-bottom: 1.5rem;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: 3px solid transparent;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.question-card:hover {
+    transform: scale(1.02);
+    border-color: var(--primary);
+}
+
+.question-card .q-char {
+    font-size: clamp(1.5rem, 4vw, 2.2rem);
+    font-weight: 900;
+    color: var(--dark);
+    font-family: 'Noto Sans SC', sans-serif;
+    margin-bottom: 0.5rem;
+}
+
+.question-card .q-pinyin {
+    font-size: 1rem;
+    color: var(--gray);
+    margin-bottom: 0.5rem;
+}
+
+.question-card .q-trans {
+    font-size: 1.1rem;
+    color: var(--dark);
+    font-weight: 600;
+}
+
+.question-card .q-answer {
+    display: none;
+    margin-top: 1.5rem;
+    padding: 1.2rem;
+    background: white;
+    border-radius: 16px;
+    text-align: left;
+}
+
+.question-card .q-answer.show {
+    display: block;
+    animation: fadeIn 0.3s ease;
+}
+
+.question-card .q-answer .ans-label {
+    font-size: 0.85rem;
+    color: var(--gray);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 0.5rem;
+}
+
+.question-card .q-answer .ans-text {
+    font-size: 1.1rem;
+    color: var(--dark);
+    line-height: 1.8;
+}
+
+.question-card.revealed {
+    border-color: var(--success);
+    background: linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%);
+}
+
+.quiz-container { max-width: 700px; margin: 0 auto; }
+
+.quiz-card {
+    background: white;
+    border-radius: 24px;
+    padding: 2rem;
+    box-shadow: var(--card-shadow);
+    text-align: center;
+}
+
+.quiz-progress {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+    padding: 0 0.5rem;
+}
+
+.quiz-progress-bar {
+    flex: 1;
+    height: 8px;
+    background: #e2e8f0;
+    border-radius: 4px;
+    margin: 0 1rem;
+    overflow: hidden;
+}
+
+.quiz-progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--primary), #2563eb);
+    border-radius: 4px;
+    transition: width 0.5s ease;
+}
+
+.quiz-question { font-size: 1.3rem; margin-bottom: 0.5rem; color: var(--gray); }
+
+.quiz-target {
+    font-size: clamp(2.5rem, 8vw, 4rem);
+    font-weight: 900;
+    color: var(--dark);
+    margin: 1rem 0;
+    font-family: 'Noto Sans SC', sans-serif;
+}
+
+.quiz-target .pinyin-hint {
+    font-size: 1.2rem;
+    color: var(--gray);
+    font-weight: 400;
+    display: block;
+    margin-top: 0.3rem;
+}
+
+.quiz-options {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin-top: 2rem;
+}
+
+.quiz-option {
+    padding: 1.2rem 1rem;
+    border: 2px solid #e2e8f0;
+    border-radius: 16px;
+    background: white;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.quiz-option:hover { border-color: var(--primary); background: var(--primary-light); }
+.quiz-option.correct { background: #d1fae5; border-color: var(--success); color: #065f46; animation: correctPulse 0.5s ease; }
+.quiz-option.wrong { background: #fee2e2; border-color: var(--danger); color: #991b1b; animation: shake 0.5s ease; }
+.quiz-option.disabled { pointer-events: none; opacity: 0.6; }
+
+@keyframes correctPulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.05); } }
+@keyframes shake { 0%, 100% { transform: translateX(0); } 25% { transform: translateX(-8px); } 75% { transform: translateX(8px); } }
+
+.quiz-feedback {
+    margin-top: 1.5rem;
+    padding: 1rem;
+    border-radius: 12px;
+    font-weight: 600;
+    display: none;
+}
+
+.quiz-feedback.show { display: block; animation: fadeIn 0.3s ease; }
+.quiz-feedback.correct-fb { background: #d1fae5; color: #065f46; }
+.quiz-feedback.wrong-fb { background: #fee2e2; color: #991b1b; }
+
+.next-btn {
+    margin-top: 1.5rem;
+    padding: 0.9rem 2.5rem;
+    background: var(--primary);
+    color: white;
+    border: none;
+    border-radius: 50px;
+    font-size: 1.1rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: none;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.next-btn.show { display: inline-block; animation: fadeIn 0.3s ease; }
+.next-btn:hover { background: #6d28d9; transform: scale(1.05); }
+
+.days-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 1rem;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.day-card {
+    background: linear-gradient(135deg, #fecaca 0%, #fca5a5 100%);
+    border-radius: 20px;
+    padding: 1.5rem;
+    text-align: center;
+    box-shadow: var(--card-shadow);
+    transition: all 0.3s ease;
+    cursor: pointer;
+    border: 2px solid transparent;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.day-card:hover { transform: translateY(-4px); border-color: var(--danger); }
+
+.day-card .day-char {
+    font-size: 2.5rem;
+    font-weight: 900;
+    color: var(--dark);
+    font-family: 'Noto Sans SC', sans-serif;
+}
+
+.day-card .day-pinyin {
+    font-size: 1rem;
+    color: var(--gray);
+    margin: 0.3rem 0;
+}
+
+.day-card .day-trans {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--dark);
+}
+
+.match-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: 1rem;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.match-card {
+    aspect-ratio: 1;
+    background: white;
+    border-radius: 16px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    box-shadow: var(--card-shadow);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: 3px solid transparent;
+    padding: 1rem;
+    text-align: center;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.match-card:hover { transform: scale(1.05); }
+.match-card.selected { border-color: var(--primary); background: var(--primary-light); }
+.match-card.matched { border-color: var(--success); background: #d1fae5; pointer-events: none; animation: correctPulse 0.5s ease; }
+
+.match-card .match-char {
+    font-size: 2.5rem;
+    font-weight: 900;
+    font-family: 'Noto Sans SC', sans-serif;
+}
+
+.match-card .match-sub {
+    font-size: 0.85rem;
+    color: var(--gray);
+    margin-top: 0.3rem;
+}
+
+.stats-bar {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    padding: 1rem;
+    background: white;
+    border-radius: 16px;
+    box-shadow: var(--card-shadow);
+    margin-bottom: 1.5rem;
+    flex-wrap: wrap;
+}
+
+.stat-item { text-align: center; }
+.stat-value { font-size: 2rem; font-weight: 900; color: var(--primary); }
+.stat-label { font-size: 0.85rem; color: var(--gray); }
+
+.fill-card {
+    background: white;
+    border-radius: 20px;
+    padding: 2rem;
+    box-shadow: var(--card-shadow);
+    max-width: 700px;
+    margin: 0 auto 1rem;
+}
+
+.fill-sentence {
+    font-size: 1.5rem;
+    font-weight: 700;
+    font-family: 'Noto Sans SC', sans-serif;
+    margin-bottom: 1rem;
+    line-height: 2;
+}
+
+.fill-sentence .blank {
+    display: inline-block;
+    min-width: 60px;
+    border-bottom: 3px solid var(--primary);
+    text-align: center;
+    color: var(--primary);
+    font-weight: 900;
+    margin: 0 0.2rem;
+}
+
+.fill-options {
+    display: flex;
+    gap: 0.8rem;
+    flex-wrap: wrap;
+    margin-top: 1rem;
+}
+
+.fill-option {
+    padding: 0.6rem 1.2rem;
+    background: var(--light);
+    border: 2px solid #e2e8f0;
+    border-radius: 12px;
+    font-size: 1.1rem;
+    font-weight: 700;
+    font-family: 'Noto Sans SC', sans-serif;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.fill-option:hover { border-color: var(--primary); background: var(--primary-light); }
+.fill-option.used { background: var(--primary); color: white; border-color: var(--primary); pointer-events: none; }
+.fill-option.correct-ans { background: var(--success); color: white; border-color: var(--success); }
+.fill-option.wrong-ans { background: var(--danger); color: white; border-color: var(--danger); }
+
+.finish-screen { text-align: center; padding: 3rem 1rem; }
+.finish-screen .trophy { font-size: 5rem; margin-bottom: 1rem; }
+.finish-screen h2 { font-size: 2rem; margin-bottom: 1rem; }
+.finish-screen .score-display { font-size: 3rem; font-weight: 900; color: var(--primary); margin: 1rem 0; }
+
+.restart-btn {
+    padding: 1rem 2.5rem;
+    background: linear-gradient(135deg, var(--primary), #2563eb);
+    color: white;
+    border: none;
+    border-radius: 50px;
+    font-size: 1.1rem;
+    font-weight: 700;
+    cursor: pointer;
+    margin-top: 1.5rem;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.restart-btn:hover { transform: scale(1.05); box-shadow: 0 8px 25px rgba(124,58,237,0.3); }
+
+.confetti {
+    position: fixed;
+    width: 10px;
+    height: 10px;
+    top: -10px;
+    animation: confetti-fall 3s ease-out forwards;
+    z-index: 1000;
+    pointer-events: none;
+}
+
+@keyframes confetti-fall {
+    0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+    100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
+}
+
+@media (max-width: 600px) {
+    .vocab-grid { grid-template-columns: 1fr; }
+    .quiz-options { grid-template-columns: 1fr; }
+    .match-grid { grid-template-columns: repeat(2, 1fr); }
+    .days-grid { grid-template-columns: 1fr 1fr; }
+    .nav-tab { padding: 0.5rem 1rem; font-size: 0.85rem; }
+}
+</style>
+</head>
+<body>
+
+<div class="header">
+    <span class="emoji">📍</span>
+    <h1>地址 Dìzhǐ</h1>
+    <p class="subtitle">Урок 2 — Адрес, локация, личные данные</p>
+    <span class="badge">HSK 1-2</span>
+</div>
+
+<div class="nav-tabs">
+    <button class="nav-tab active" onclick="showSection('vocab')">📖 Словарь</button>
+    <button class="nav-tab" onclick="showSection('questions')">❓ Вопросы</button>
+    <button class="nav-tab" onclick="showSection('days')">📅 Дни недели</button>
+    <button class="nav-tab" onclick="showSection('quiz')">🎯 Викторина</button>
+    <button class="nav-tab" onclick="showSection('match')">🧩 Пары</button>
+    <button class="nav-tab" onclick="showSection('fill')">✏️ Пропуски</button>
+</div>
+
+<!-- VOCABULARY -->
+<div id="vocab" class="content-section active">
+    <div class="stats-bar">
+        <div class="stat-item"><div class="stat-value" id="vocab-count">16</div><div class="stat-label">слов</div></div>
+        <div class="stat-item"><div class="stat-value">6</div><div class="stat-label">вопросов</div></div>
+        <div class="stat-item"><div class="stat-value">7</div><div class="stat-label">дней недели</div></div>
+    </div>
+    <div class="vocab-grid" id="vocab-grid"></div>
+</div>
+
+<!-- QUESTIONS -->
+<div id="questions" class="content-section">
+    <div style="text-align: center; margin-bottom: 1.5rem;">
+        <h2 style="font-size: 1.5rem; margin-bottom: 0.5rem;">❓ Ключевые вопросы</h2>
+        <p style="color: var(--gray);">Нажми на карточку, чтобы увидеть пример ответа</p>
+    </div>
+    <div class="questions-container" id="questions-list"></div>
+</div>
+
+<!-- DAYS -->
+<div id="days" class="content-section">
+    <div style="text-align: center; margin-bottom: 1.5rem;">
+        <h2 style="font-size: 1.5rem; margin-bottom: 0.5rem;">📅 Дни недели 星期 Xīngqī</h2>
+        <p style="color: var(--gray);">星期 + число (1-6), воскресенье = 星期日/天</p>
+    </div>
+    <div class="days-grid" id="days-grid"></div>
+    <div style="max-width: 700px; margin: 2rem auto 0; padding: 1.5rem; background: var(--accent-light); border-radius: 16px;">
+        <p style="font-weight: 700; color: var(--accent); margin-bottom: 0.5rem;">💡 Правило:</p>
+        <p>星期一 = xīngqīyī (понедельник)<br>
+        星期二 = xīngqīèr (вторник)<br>
+        ...<br>
+        星期六 = xīngqīliù (суббота)<br>
+        <b>星期日/星期天 = воскресенье</b></p>
+    </div>
+</div>
+
+<!-- QUIZ -->
+<div id="quiz" class="content-section">
+    <div class="quiz-container">
+        <div class="quiz-card" id="quiz-card">
+            <div class="quiz-progress">
+                <span id="quiz-current">1</span>
+                <div class="quiz-progress-bar"><div class="quiz-progress-fill" id="quiz-progress-fill" style="width: 0%"></div></div>
+                <span id="quiz-total">12</span>
+            </div>
+            <div class="quiz-question">Выбери правильный перевод:</div>
+            <div class="quiz-target" id="quiz-target"></div>
+            <div class="quiz-options" id="quiz-options"></div>
+            <div class="quiz-feedback" id="quiz-feedback"></div>
+            <button class="next-btn" id="next-btn" onclick="nextQuestion()">Дальше →</button>
+        </div>
+    </div>
+</div>
+
+<!-- MATCH -->
+<div id="match" class="content-section">
+    <div class="stats-bar">
+        <div class="stat-item"><div class="stat-value" id="match-score">0</div><div class="stat-label">найдено пар</div></div>
+        <div class="stat-item"><div class="stat-value" id="match-moves">0</div><div class="stat-label">ходов</div></div>
+    </div>
+    <div class="match-grid" id="match-grid"></div>
+</div>
+
+<!-- FILL BLANKS -->
+<div id="fill" class="content-section">
+    <div style="text-align: center; margin-bottom: 1.5rem;">
+        <h2 style="font-size: 1.5rem; margin-bottom: 0.5rem;">✏️ Вставь пропуск</h2>
+        <p style="color: var(--gray);">Выбери правильное слово для предложения</p>
+    </div>
+    <div id="fill-list"></div>
+</div>
+
+<script>
+// ===== DATA =====
+const vocabulary = [
+    { char: '城市', pinyin: 'chéngshì', meaning: 'город', icon: '🏙️' },
+    { char: '号', pinyin: 'hào', meaning: 'номер', icon: '🔢' },
+    { char: '路', pinyin: 'lù', meaning: 'улица (дорога)', icon: '🛣️' },
+    { char: '街', pinyin: 'jiē', meaning: 'улица (проспект)', icon: '🏪' },
+    { char: '室', pinyin: 'shì', meaning: 'квартира, комната', icon: '🚪' },
+    { char: '名字', pinyin: 'míngzi', meaning: 'имя', icon: '📝' },
+    { char: '电话', pinyin: 'diànhuà', meaning: 'номер телефона', icon: '📞' },
+    { char: '电子邮箱', pinyin: 'diànzǐ yóuxiāng', meaning: 'электронная почта', icon: '📧' },
+    { char: '岁', pinyin: 'suì', meaning: 'возраст (лет)', icon: '🎂' },
+    { char: '中国', pinyin: 'Zhōngguó', meaning: 'Китай', icon: '🇨🇳' },
+    { char: '美国', pinyin: 'Měiguó', meaning: 'Америка', icon: '🇺🇸' },
+    { char: '法国', pinyin: 'Fǎguó', meaning: 'Франция', icon: '🇫🇷' },
+    { char: '俄罗斯', pinyin: 'Èluósī', meaning: 'Россия', icon: '🇷🇺' },
+    { char: '莫斯科', pinyin: 'Mòsīkē', meaning: 'Москва', icon: '🏛️' },
+    { char: '北京', pinyin: 'Běijīng', meaning: 'Пекин', icon: '🏯' },
+    { char: '上海', pinyin: 'Shànghǎi', meaning: 'Шанхай', icon: '🌃' }
+];
+
+const questions = [
+    {
+        char: '你叫什么名字？',
+        pinyin: 'Nǐ jiào shénme míngzi?',
+        trans: 'Как тебя зовут?',
+        answer: '我叫... (Wǒ jiào...) — Меня зовут...<br>我的名字是... (Wǒ de míngzi shì...) — Моё имя...'
+    },
+    {
+        char: '你是哪国人？',
+        pinyin: 'Nǐ shì nǎ guó rén?',
+        trans: 'Ты из какой страны?',
+        answer: '我是俄罗斯人。(Wǒ shì Èluósī rén.) — Я русский.<br>我是中国人。(Wǒ shì Zhōngguó rén.) — Я китаец.'
+    },
+    {
+        char: '你住在哪里？',
+        pinyin: 'Nǐ zhù zài nǎlǐ?',
+        trans: 'Где ты живёшь?',
+        answer: '我住在莫斯科。(Wǒ zhù zài Mòsīkē.) — Я живу в Москве.<br>我住在北京。(Wǒ zhù zài Běijīng.) — Я живу в Пекине.'
+    },
+    {
+        char: '你的地址是什么？',
+        pinyin: 'Nǐ de dìzhǐ shì shénme?',
+        trans: 'Какой твой адрес?',
+        answer: '我的地址是...路...号...室。(Wǒ de dìzhǐ shì... lù ... hào ... shì.)<br>Пример: 我的地址是北京路25号3室。'
+    },
+    {
+        char: '你的电子邮箱是什么？',
+        pinyin: 'Nǐ de diànzǐ yóuxiāng shì shénme?',
+        trans: 'Какой твой email?',
+        answer: '我的电子邮箱是... (Wǒ de diànzǐ yóuxiāng shì...)<br>也可以说: 你的邮箱是什么？'
+    },
+    {
+        char: '你的电话号是多少？',
+        pinyin: 'Nǐ de diànhuà hào shì duōshao?',
+        trans: 'Какой твой номер телефона?',
+        answer: '我的电话是... (Wǒ de diànhuà shì...)<br>也可以说: 你的手机号是多少？'
+    }
+];
+
+const days = [
+    { char: '星期一', pinyin: 'xīngqīyī', trans: 'понедельник', num: '1' },
+    { char: '星期二', pinyin: 'xīngqīèr', trans: 'вторник', num: '2' },
+    { char: '星期三', pinyin: 'xīngqīsān', trans: 'среда', num: '3' },
+    { char: '星期四', pinyin: 'xīngqīsì', trans: 'четверг', num: '4' },
+    { char: '星期五', pinyin: 'xīngqīwǔ', trans: 'пятница', num: '5' },
+    { char: '星期六', pinyin: 'xīngqīliù', trans: 'суббота', num: '6' },
+    { char: '星期日', pinyin: 'xīngqīrì', trans: 'воскресенье', num: '日' }
+];
+
+const quizQuestions = [
+    { target: '城市', pinyin: 'chéngshì', trans: 'город', correct: 'город', options: ['город', 'улица', 'номер', 'квартира'] },
+    { target: '电话', pinyin: 'diànhuà', trans: 'телефон', correct: 'телефон', options: ['почта', 'телефон', 'имя', 'возраст'] },
+    { target: '名字', pinyin: 'míngzi', trans: 'имя', correct: 'имя', options: ['фамилия', 'имя', 'город', 'страна'] },
+    { target: '俄罗斯', pinyin: 'Èluósī', trans: 'Россия', correct: 'Россия', options: ['Китай', 'Америка', 'Россия', 'Франция'] },
+    { target: '岁', pinyin: 'suì', trans: 'лет (возраст)', correct: 'лет', options: ['год', 'месяц', 'лет', 'день'] },
+    { target: '地址', pinyin: 'dìzhǐ', trans: 'адрес', correct: 'адрес', options: ['адрес', 'телефон', 'имя', 'город'] },
+    { target: '电子邮箱', pinyin: 'diànzǐ yóuxiāng', trans: 'email', correct: 'email', options: ['телефон', 'email', 'адрес', 'имя'] },
+    { target: '莫斯科', pinyin: 'Mòsīkē', trans: 'Москва', correct: 'Москва', options: ['Пекин', 'Шанхай', 'Москва', 'Париж'] },
+    { target: '号', pinyin: 'hào', trans: 'номер', correct: 'номер', options: ['улица', 'номер', 'квартира', 'город'] },
+    { target: '室', pinyin: 'shì', trans: 'квартира', correct: 'квартира', options: ['дом', 'квартира', 'улица', 'номер'] },
+    { target: '路', pinyin: 'lù', trans: 'улица (дорога)', correct: 'улица', options: ['проспект', 'улица', 'дорога', 'переулок'] },
+    { target: '北京', pinyin: 'Běijīng', trans: 'Пекин', correct: 'Пекин', options: ['Шанхай', 'Пекин', 'Гуанчжоу', 'Шэньчжэнь'] }
+];
+
+const fillBlanks = [
+    { sentence: '你___什么名字？', blank: '叫', options: ['叫', '是', '有', '在'], trans: 'Как тебя зовут?' },
+    { sentence: '你是___国人？', blank: '哪', options: ['哪', '什么', '几', '怎么'], trans: 'Ты из какой страны?' },
+    { sentence: '我住___莫斯科。', blank: '在', options: ['在', '是', '有', '去'], trans: 'Я живу в Москве.' },
+    { sentence: '我的___是25号。', blank: '电话', options: ['电话', '名字', '地址', '城市'], trans: 'Мой номер — 25.' },
+    { sentence: '你___在哪里？', blank: '住', options: ['住', '是', '有', '叫'], trans: 'Где ты живёшь?' },
+    { sentence: '我___俄罗斯人。', blank: '是', options: ['是', '在', '有', '叫'], trans: 'Я русский.' }
+];
+
+// ===== STATE =====
+let currentQuiz = 0;
+let quizScore = 0;
+let matchSelected = null;
+let matchPairsFound = 0;
+let matchMoves = 0;
+let matchLocked = false;
+
+// ===== INIT =====
+function init() {
+    renderVocab();
+    renderQuestions();
+    renderDays();
+    renderQuiz();
+    renderMatch();
+    renderFill();
+}
+
+// ===== NAVIGATION =====
+function showSection(id) {
+    document.querySelectorAll('.content-section').forEach(s => s.classList.remove('active'));
+    document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+    event.target.classList.add('active');
+}
+
+// ===== VOCABULARY =====
+function renderVocab() {
+    const grid = document.getElementById('vocab-grid');
+    grid.innerHTML = vocabulary.map(v => `
+        <div class="vocab-card" onclick="flipCard(this)">
+            <span class="icon">${v.icon}</span>
+            <div class="char-big">${v.char}</div>
+            <div class="pinyin">${v.pinyin}</div>
+            <div class="meaning">${v.meaning}</div>
+        </div>
+    `).join('');
+}
+
+function flipCard(card) {
+    card.style.transform = card.style.transform === 'rotateY(180deg)' ? 'rotateY(0deg)' : 'rotateY(180deg)';
+}
+
+// ===== QUESTIONS =====
+function renderQuestions() {
+    const list = document.getElementById('questions-list');
+    list.innerHTML = questions.map((q, i) => `
+        <div class="question-card" onclick="toggleAnswer(${i})">
+            <div class="q-char">${q.char}</div>
+            <div class="q-pinyin">${q.pinyin}</div>
+            <div class="q-trans">${q.trans}</div>
+            <div class="q-answer" id="q-ans-${i}">
+                <div class="ans-label">💬 Пример ответа:</div>
+                <div class="ans-text">${q.answer}</div>
+            </div>
+        </div>
+    `).join('');
+}
+
+function toggleAnswer(index) {
+    const ans = document.getElementById('q-ans-' + index);
+    const card = ans.closest('.question-card');
+    if (ans.classList.contains('show')) {
+        ans.classList.remove('show');
+        card.classList.remove('revealed');
+    } else {
+        ans.classList.add('show');
+        card.classList.add('revealed');
+    }
+}
+
+// ===== DAYS =====
+function renderDays() {
+    const grid = document.getElementById('days-grid');
+    grid.innerHTML = days.map(d => `
+        <div class="day-card" onclick="animateDay(this)">
+            <div class="day-char">${d.char}</div>
+            <div class="day-pinyin">${d.pinyin}</div>
+            <div class="day-trans">${d.trans}</div>
+        </div>
+    `).join('');
+}
+
+function animateDay(card) {
+    card.style.transform = 'scale(0.95)';
+    setTimeout(() => card.style.transform = 'scale(1.05)', 100);
+    setTimeout(() => card.style.transform = '', 200);
+}
+
+// ===== QUIZ =====
+function renderQuiz() {
+    if (currentQuiz >= quizQuestions.length) {
+        showQuizFinish();
+        return;
+    }
+    
+    const q = quizQuestions[currentQuiz];
+    document.getElementById('quiz-current').textContent = currentQuiz + 1;
+    document.getElementById('quiz-total').textContent = quizQuestions.length;
+    document.getElementById('quiz-progress-fill').style.width = ((currentQuiz / quizQuestions.length) * 100) + '%';
+    
+    document.getElementById('quiz-target').innerHTML = `
+        ${q.target}
+        <span class="pinyin-hint">${q.pinyin} — что это?</span>
+    `;
+    
+    const optsDiv = document.getElementById('quiz-options');
+    optsDiv.innerHTML = q.options.map(opt => `
+        <button class="quiz-option" onclick="checkAnswer('${opt}', '${q.correct}')">${opt}</button>
+    `).join('');
+    
+    document.getElementById('quiz-feedback').className = 'quiz-feedback';
+    document.getElementById('quiz-feedback').textContent = '';
+    document.getElementById('next-btn').classList.remove('show');
+}
+
+function checkAnswer(selected, correct) {
+    const options = document.querySelectorAll('.quiz-option');
+    const feedback = document.getElementById('quiz-feedback');
+    
+    options.forEach(btn => {
+        btn.classList.add('disabled');
+        if (btn.textContent === correct) btn.classList.add('correct');
+        else if (btn.textContent === selected && selected !== correct) btn.classList.add('wrong');
+    });
+    
+    if (selected === correct) {
+        quizScore++;
+        feedback.className = 'quiz-feedback show correct-fb';
+        feedback.innerHTML = '✅ Правильно! Молодец!';
+        createConfetti();
+    } else {
+        feedback.className = 'quiz-feedback show wrong-fb';
+        feedback.innerHTML = `❌ Неверно. Правильно: <b>${correct}</b>`;
+    }
+    
+    document.getElementById('next-btn').classList.add('show');
+}
+
+function nextQuestion() {
+    currentQuiz++;
+    renderQuiz();
+}
+
+function showQuizFinish() {
+    const card = document.getElementById('quiz-card');
+    const percentage = Math.round((quizScore / quizQuestions.length) * 100);
+    
+    card.innerHTML = `
+        <div class="finish-screen">
+            <div class="trophy">🏆</div>
+            <h2>Викторина завершена!</h2>
+            <div class="score-display">${quizScore} / ${quizQuestions.length}</div>
+            <p style="color: var(--gray); font-size: 1.1rem;">
+                ${percentage >= 80 ? 'Отлично! Ты мастер! 🎉' : percentage >= 50 ? 'Неплохо, продолжай учить! 💪' : 'Попробуй ещё раз! 📚'}
+            </p>
+            <button class="restart-btn" onclick="restartQuiz()">Пройти снова ↺</button>
+        </div>
+    `;
+    if (percentage >= 60) createConfetti();
+}
+
+function restartQuiz() {
+    currentQuiz = 0;
+    quizScore = 0;
+    document.getElementById('quiz-card').innerHTML = `
+        <div class="quiz-progress">
+            <span id="quiz-current">1</span>
+            <div class="quiz-progress-bar"><div class="quiz-progress-fill" id="quiz-progress-fill" style="width: 0%"></div></div>
+            <span id="quiz-total">12</span>
+        </div>
+        <div class="quiz-question">Выбери правильный перевод:</div>
+        <div class="quiz-target" id="quiz-target"></div>
+        <div class="quiz-options" id="quiz-options"></div>
+        <div class="quiz-feedback" id="quiz-feedback"></div>
+        <button class="next-btn" id="next-btn" onclick="nextQuestion()">Дальше →</button>
+    `;
+    renderQuiz();
+}
+
+// ===== MATCH GAME =====
+function renderMatch() {
+    const grid = document.getElementById('match-grid');
+    const selected = vocabulary.slice(0, 8);
+    const cards = [];
+    
+    selected.forEach(v => {
+        cards.push({ type: 'char', value: v.char, pair: v.char });
+        cards.push({ type: 'meaning', value: v.meaning, pair: v.char });
+    });
+    
+    cards.sort(() => Math.random() - 0.5);
+    
+    grid.innerHTML = cards.map((c, i) => `
+        <div class="match-card" data-pair="${c.pair}" data-index="${i}" onclick="handleMatchClick(this)">
+            <div class="match-char">${c.type === 'char' ? c.value : '?'}</div>
+            <div class="match-sub">${c.type === 'meaning' ? c.value : c.value}</div>
+        </div>
+    `).join('');
+}
+
+function handleMatchClick(card) {
+    if (matchLocked || card.classList.contains('matched')) return;
+    
+    card.classList.add('selected');
+    
+    if (!matchSelected) {
+        matchSelected = card;
+        return;
+    }
+    
+    if (matchSelected === card) {
+        card.classList.remove('selected');
+        matchSelected = null;
+        return;
+    }
+    
+    matchLocked = true;
+    matchMoves++;
+    document.getElementById('match-moves').textContent = matchMoves;
+    
+    const pair1 = matchSelected.dataset.pair;
+    const pair2 = card.dataset.pair;
+    
+    if (pair1 === pair2) {
+        matchSelected.classList.remove('selected');
+        matchSelected.classList.add('matched');
+        card.classList.remove('selected');
+        card.classList.add('matched');
+        matchPairsFound++;
+        document.getElementById('match-score').textContent = matchPairsFound;
+        matchSelected = null;
+        matchLocked = false;
+        
+        if (matchPairsFound === 8) {
+            setTimeout(() => {
+                alert('🎉 Все пары найдены за ' + matchMoves + ' ходов!');
+                createConfetti();
+            }, 500);
+        }
+    } else {
+        setTimeout(() => {
+            matchSelected.classList.remove('selected');
+            card.classList.remove('selected');
+            matchSelected = null;
+            matchLocked = false;
+        }, 800);
+    }
+}
+
+// ===== FILL BLANKS =====
+function renderFill() {
+    const list = document.getElementById('fill-list');
+    list.innerHTML = fillBlanks.map((f, i) => `
+        <div class="fill-card">
+            <div class="fill-sentence" id="fill-sent-${i}">
+                ${f.sentence.replace('___', '<span class="blank" id="blank-' + i + '">?</span>')}
+            </div>
+            <div style="color: var(--gray); margin-bottom: 1rem;">${f.trans}</div>
+            <div class="fill-options" id="fill-opts-${i}">
+                ${f.options.map(opt => `
+                    <button class="fill-option" onclick="checkFill(${i}, '${opt}', '${f.blank}')">${opt}</button>
+                `).join('')}
+            </div>
+            <div class="quiz-feedback" id="fill-fb-${i}" style="margin-top: 1rem;"></div>
+        </div>
+    `).join('');
+}
+
+function checkFill(index, selected, correct) {
+    const blank = document.getElementById('blank-' + index);
+    const fb = document.getElementById('fill-fb-' + index);
+    const opts = document.querySelectorAll('#fill-opts-' + index + ' .fill-option');
+    
+    opts.forEach(btn => btn.classList.add('used'));
+    
+    blank.textContent = selected;
+    
+    if (selected === correct) {
+        blank.style.color = 'var(--success)';
+        blank.style.borderColor = 'var(--success)';
+        fb.className = 'quiz-feedback show correct-fb';
+        fb.innerHTML = '✅ Правильно!';
+        createConfetti();
+    } else {
+        blank.style.color = 'var(--danger)';
+        blank.style.borderColor = 'var(--danger)';
+        fb.className = 'quiz-feedback show wrong-fb';
+        fb.innerHTML = `❌ Неверно. Правильно: <b>${correct}</b>`;
+        
+        setTimeout(() => {
+            blank.textContent = correct;
+            blank.style.color = 'var(--success)';
+            blank.style.borderColor = 'var(--success)';
+        }, 1000);
+    }
+}
+
+// ===== CONFETTI =====
+function createConfetti() {
+    const colors = ['#7c3aed', '#2563eb', '#f59e0b', '#10b981', '#ef4444', '#ec4899'];
+    for (let i = 0; i < 40; i++) {
+        const conf = document.createElement('div');
+        conf.className = 'confetti';
+        conf.style.left = Math.random() * 100 + 'vw';
+        conf.style.background = colors[Math.floor(Math.random() * colors.length)];
+        conf.style.animationDuration = (Math.random() * 2 + 2) + 's';
+        conf.style.borderRadius = Math.random() > 0.5 ? '50%' : '0';
+        document.body.appendChild(conf);
+        setTimeout(() => conf.remove(), 4000);
+    }
+}
+
+// Start
+init();
+</script>
+</body>
+</html>
